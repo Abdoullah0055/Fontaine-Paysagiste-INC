@@ -29,3 +29,37 @@ window.addEventListener("scroll", function () {
 document.getElementById("scrollTopBtn").addEventListener("click", function () {
     window.scrollTo({ top: 0, behavior: "smooth" });
 });
+
+
+
+//Ne pas aller dans le site formspree.io
+
+const form = document.getElementById("contact-form");
+    const confirmationMessage = document.getElementById("confirmation-message");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault(); // Empêche la soumission par défaut
+
+      const formData = new FormData(form);
+
+      fetch(form.action, {
+        method: "POST",
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          form.reset(); // Réinitialise le formulaire
+          confirmationMessage.style.display = "block"; // Affiche le message de confirmation
+        } else {
+          return response.json().then(data => {
+            throw new Error(data.error || "Une erreur est survenue lors de l'envoi du formulaire.");
+          });
+        }
+      })
+      .catch(error => {
+        alert(error.message);
+      });
+    });
