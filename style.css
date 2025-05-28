@@ -110,7 +110,7 @@ h2 {
 }
 
 .toggle-btn.rotate {
-    transform: rotate(45deg);
+    transform: rotate(135deg);
 }
 
 .service-desc {
