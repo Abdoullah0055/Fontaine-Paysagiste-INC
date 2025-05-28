@@ -18,6 +18,10 @@ document.addEventListener("DOMContentLoaded", function () {
         button.classList.toggle('rotate');
     }
 
+    // Rendre accessible dans le HTML inline onclick
+    window.toggleDesc = toggleDesc;
+
+
     // Bouton Scroll to Top
     window.addEventListener("scroll", function () {
         const scrollBtn = document.getElementById("scrollTopBtn");
@@ -66,13 +70,48 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     });
 
-    // Slider avant/après pour la galerie
-    document.querySelectorAll('.before-after-wrapper').forEach(wrapper => {
-        const slider = wrapper.querySelector('.slider');
-        const afterImg = wrapper.querySelector('.after-image');
+    // Comparateur avant/après avec glissière verticale
+    document.querySelectorAll('.before-after-container').forEach(container => {
+        const afterImage = container.querySelector('.after');
+        const slider = container.querySelector('.slider-bar');
 
-        slider.addEventListener('input', function () {
-            afterImg.style.width = `${this.value}%`;
+        const moveSlider = (x) => {
+            const rect = container.getBoundingClientRect();
+            let pos = x - rect.left;
+            pos = Math.max(0, Math.min(pos, rect.width));
+            const percent = (pos / rect.width) * 100;
+
+            slider.style.left = `${percent}%`;
+            afterImage.style.clipPath = `inset(0 ${100 - percent}% 0 0)`;
+        };
+
+        let isDragging = false;
+
+        slider.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            moveSlider(e.clientX);
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) moveSlider(e.clientX);
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        // Support tactile
+        slider.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            moveSlider(e.touches[0].clientX);
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            if (isDragging) moveSlider(e.touches[0].clientX);
+        });
+
+        document.addEventListener('touchend', () => {
+            isDragging = false;
         });
     });
 
