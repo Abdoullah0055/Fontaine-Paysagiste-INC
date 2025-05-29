@@ -21,6 +21,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // Rendre accessible dans le HTML inline onclick
     window.toggleDesc = toggleDesc;
 
+    // Bouton hamburger
+    const btn = document.getElementById("menu-btn");
+    const nav = document.getElementById("main-nav");
+    btn.addEventListener("click", () => {
+        nav.classList.toggle("open");
+    });
+
 
     // Bouton Scroll to Top
     window.addEventListener("scroll", function () {
