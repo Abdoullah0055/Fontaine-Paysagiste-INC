@@ -354,6 +354,10 @@ footer {
     gap: 30px;
 }
 
+.before-after-container .slider-range {
+    display: none;
+}
+
 /* --- MOBILE (≤768px) --- */
 @media only screen and (max-width: 768px) {
     #menu-btn {
@@ -387,7 +391,27 @@ footer {
     .services-grid {
         grid-template-columns: 1fr;
     }
+
+    .galerie {
+        grid-template-columns: 1fr;
+    }
+
+    .before-after-container .slider-bar {
+        display: none;
+    }
+
+    .before-after-container .slider-range {
+        display: block;
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        background: transparent;
+        /* personnalise l’apparence si tu veux */
+    }
 }
+
 
 /* 
 

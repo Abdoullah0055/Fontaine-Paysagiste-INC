@@ -44,6 +44,19 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
+    // Comparateur mobile via input[type=range]
+    document.querySelectorAll('.slider-range').forEach(range => {
+        const container = range.closest('.before-after-container');
+        const afterImg = container.querySelector('.after');
+        // valeur initiale
+        afterImg.style.clipPath = `inset(0 ${100 - range.value}% 0 0)`;
+        // à chaque mouvement
+        range.addEventListener('input', e => {
+            const pct = +e.target.value;
+            afterImg.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+        });
+    });
+
 
     //Ne pas aller dans le site formspree.io
 
