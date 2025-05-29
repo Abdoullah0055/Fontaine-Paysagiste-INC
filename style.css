@@ -383,6 +383,10 @@ footer {
     #main-nav.open>a:not(.logo) {
         display: block;
     }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* 
